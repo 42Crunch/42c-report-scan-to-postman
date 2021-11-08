@@ -49,5 +49,5 @@ $ ls
 
 ## TODO
 
-[ ] Convert asterisk properties into variables
-[ ] Add responses to the Postman collection
+- [ ] Convert asterisk properties into variables
+- [ ] Add responses to the Postman collection
