@@ -1,13 +1,10 @@
-42Crunch Conformance Scan Report to Postman converter
-=====================================================
+# 42Crunch Conformance Scan Report to Postman converter
 
 This Projects allows to convert a 42 Crunch Conformance Report into a Postman Collection.
 
-Install
--------
+## Install
 
-From GitHub
-+++++++++++
+### From GitHub
 
 ```bash
 $ git clone https://github.com/42c-presales/42c-report-scan-to-postman.git
@@ -15,18 +12,15 @@ $ cd 42c-report-scan-to-postman
 $ pip install .
 ```
 
-From Pypi
-+++++++++
+### From Pypi
 
 ```bash
 $ pip install 42c_csr2postman
 ```
 
-Usage 
------
+## Usage 
 
-Getting help
-++++++++++++
+### Getting help
 
 ```bash
 $ 42c-csr -h
@@ -44,8 +38,7 @@ optional arguments:
                         output Postman file. Default: '42c_conformance_scan_report_postman.json' 
 ```
 
-Converting a Conformance Scan Report
-**++++++++++++++++++++++++++++++++++++**
+### Converting a Conformance Scan Report
 
 ```bash
 $ 42c-csr examples/PhotoManager-conformance-scan-2021-10-27-21-11.json
@@ -54,8 +47,7 @@ $ ls
 ```
     Now you can import '42c_conformance_scan_report_postman.json' in Postman
 
-TODO
-----
+## TODO
 
 [ ] Convert asterisk properties into variables
 [ ] Add responses to the Postman collection
