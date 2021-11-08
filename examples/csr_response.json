@@ -1,0 +1,36 @@
+
+{
+  "id": "5682ab58-cb06-46e7-851b-2167fb288f3e",
+  "injectionKey": 1,
+  "injectionDescription": 1,
+  "injectionDescriptionParams": [
+    "application/random+content+type",
+    "application/json"
+  ],
+  "apiResponseAnalysis": [
+    {
+      "responseKey": 3,
+      "responseDescription": 3,
+      "responseDescriptionParams": [
+        "text/html"
+      ]
+    },
+    {
+      "responseKey": 4,
+      "responseDescription": 4
+    }
+  ],
+  "criticality": 3,
+  "requestDate": "2021-10-27T19:12:10Z",
+  "requestContentType": 5,
+  "requestBodyLength": 95,
+  "url": "https://xliic-demo-api.eastus.cloudapp.azure.com/api/user/edit_info",
+  "curl": "curl -X 'PUT' -d '{\"account_balance\":762.6534174981382,\"email\":\"Fy71Tp@rjXV2odqY4.nhc\",\"name\":\"3BriV0Xt\\r.fbeIg\"}' -H 'Content-Type: application/random+content+type' -H 'X-Access-Token: ******' 'https://xliic-demo-api.eastus.cloudapp.azure.com/api/user/edit_info'",
+  "responseTime": 87,
+  "responseHttpStatusCode": 502,
+  "responseContentType": 6,
+  "responseBodyLength": 150,
+  "responseBody": "PGh0bWw+DQo8aGVhZD48dGl0bGU+NTAyIEJhZCBHYXRld2F5PC90aXRsZT48L2hlYWQ+DQo8Ym9keT4NCjxjZW50ZXI+PGgxPjUwMiBCYWQgR2F0ZXdheTwvaDE+PC9jZW50ZXI+DQo8aHI+PGNlbnRlcj5uZ2lueDwvY2VudGVyPg0KPC9ib2R5Pg0KPC9odG1sPg0K",
+  "responseHttp": "SFRUUC8xLjEgNTAyIEJhZCBHYXRld2F5DQpDb250ZW50LUxlbmd0aDogMTUwDQpDb25uZWN0aW9uOiBrZWVwLWFsaXZlDQpDb250ZW50LVR5cGU6IHRleHQvaHRtbA0KRGF0ZTogV2VkLCAyNyBPY3QgMjAyMSAxOToxMjoxMCBHTVQNClN0cmljdC1UcmFuc3BvcnQtU2VjdXJpdHk6IG1heC1hZ2U9MTU3MjQ4MDA7IGluY2x1ZGVTdWJEb21haW5zDQoNCjxodG1sPg0KPGhlYWQ+PHRpdGxlPjUwMiBCYWQgR2F0ZXdheTwvdGl0bGU+PC9oZWFkPg0KPGJvZHk+DQo8Y2VudGVyPjxoMT41MDIgQmFkIEdhdGV3YXk8L2gxPjwvY2VudGVyPg0KPGhyPjxjZW50ZXI+bmdpbng8L2NlbnRlcj4NCjwvYm9keT4NCjwvaHRtbD4NCg==",
+  "jsonPointer": 8
+}
