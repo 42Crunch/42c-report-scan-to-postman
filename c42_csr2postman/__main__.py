@@ -4,6 +4,9 @@ import argparse
 from c42_csr2postman.models import *
 from c42_csr2postman.exceptions import *
 
+def _write_postman_variable_(variable: str) -> str:
+    return f"{{{{{variable}}}}}"
+
 def csr2postman(parsed_cli: argparse.Namespace):
     postman_output = parsed_cli.output_file
     csr_report_file = parsed_cli.CSR_REPORT_FILE
@@ -23,21 +26,58 @@ def csr2postman(parsed_cli: argparse.Namespace):
 
     # End-Points
     packages = []
+    secrets = set()
+    variables = {}
+
     for path, path_object in csr_report.paths.items():
 
         end_points = []
+
+        if path_object.secrets:
+            secrets.update(path_object.secrets)
+
+        for k, v in path_object.variables.items():
+            if k not in variables:
+                variables[k] = v
 
         for issue in path_object.issues:
 
             url_parsed = urlparse(issue.url)
 
+            # -------------------------------------------------------------------------
+            # Setup variables
+            # -------------------------------------------------------------------------
+            if all(x in variables for x in ("host", "schema")):
+                h_host = f"{_write_postman_variable_('host')}"\
+                         f"://{_write_postman_variable_('schema')}"
+
+                host = [h_host]
+                raw = f"{h_host}{issue.url}"
+            else:
+                host = [f"{url_parsed.scheme}://{url_parsed.hostname}"]
+                raw = issue.url,
+
+            # -------------------------------------------------------------------------
+            # Setup request content
+            # -------------------------------------------------------------------------
+            body = None
+            if issue.body:
+                body = PostmanBody(
+                    mode="raw",
+                    raw=issue.body
+                )
+
+            # -------------------------------------------------------------------------
+            # Setup end-point name
+            # -------------------------------------------------------------------------
             ep = PostmanEndPoint(
-                name=issue.path,
+                name=issue.description,
                 request=PostmanRequest(
                     method=path_object.method,
+                    body=body,
                     url=PostmanUrl(
-                        raw=issue.url,
-                        host=[f"{url_parsed.scheme}://{url_parsed.hostname}"],
+                        raw=raw,
+                        host=host,
                         path=[issue.path]
                     ),
                     header=[
@@ -56,13 +96,27 @@ def csr2postman(parsed_cli: argparse.Namespace):
             )
         )
 
+    # -------------------------------------------------------------------------
+    # Build postman configuration file
+    # -------------------------------------------------------------------------
+    file_secrets = [
+                PostmanProperty(key=sec, value="")
+                for sec in secrets
+    ]
+
+    file_variables = [
+        PostmanProperty(key=k, value=v)
+        for k, v in variables.items()
+    ]
+
     postman = PostmanConfigFile(
         info=PostmanInfo(
             name=f"42Crunch Conformance Scan Report",
             description=f"Postman collection for test scan"
                         f" date '{csr_report.date}'",
         ),
-        items=packages
+        items=packages,
+        variables=[*file_secrets, *file_variables]
     )
 
     # Dump

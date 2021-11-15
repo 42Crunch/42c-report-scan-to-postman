@@ -12,13 +12,6 @@ class PostmanProperty(Serializable):
     value: str
 
 # -------------------------------------------------------------------------
-# Collection variables
-# -------------------------------------------------------------------------
-@dataclass
-class PostmanVariables(Serializable):
-    variables: List[PostmanProperty] = field(default_factory=list)
-
-# -------------------------------------------------------------------------
 # Generic information for a Postman Class
 # -------------------------------------------------------------------------
 @dataclass
@@ -49,10 +42,16 @@ class PostmanUrl(Serializable):
     path: List[str] = field(default_factory=list)
 
 @dataclass
+class PostmanBody(Serializable):
+    mode: str
+    raw: str
+
+@dataclass
 class PostmanRequest(Serializable):
     method: str
     url: PostmanUrl
     description: str = ""
+    body: PostmanBody or None = None
     header: List[PostmanProperty] = field(default_factory=list)
     auth: PostmanAuth = None
 
@@ -84,5 +83,6 @@ class PostmanPackage(Serializable):
 @dataclass
 class PostmanConfigFile(Serializable):
     info: PostmanInfo
-    variables: PostmanVariables = field(default_factory=PostmanVariables)
+    variables: List[PostmanProperty] = field(default_factory=list)
+    auth: List[PostmanProperty] = field(default_factory=list)
     items: PostmanPackage or List[PostmanEndPoint] = field(default_factory=list)

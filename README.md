@@ -4,7 +4,7 @@ This Projects allows to convert a 42 Crunch Conformance Report into a Postman Co
 
 ## Install
 
-### From GitHub
+### Cloning repository
 
 ```bash
 $ git clone https://github.com/42c-presales/42c-report-scan-to-postman.git
@@ -12,10 +12,10 @@ $ cd 42c-report-scan-to-postman
 $ pip install .
 ```
 
-### From Pypi
+### Without cloning repository
 
 ```bash
-$ pip install 42c_csr2postman
+$ pip install git+https://github.com/42c-presales/42c-report-scan-to-postman.git
 ```
 
 ## Usage 
@@ -46,8 +46,3 @@ $ ls
 42c_conformance_scan_report_postman.json
 ```
     Now you can import '42c_conformance_scan_report_postman.json' in Postman
-
-## TODO
-
-- [ ] Convert asterisk properties into variables
-- [ ] Add responses to the Postman collection

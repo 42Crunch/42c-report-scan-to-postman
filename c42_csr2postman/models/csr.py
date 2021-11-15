@@ -8,7 +8,6 @@ from dataclasses import dataclass, field
 
 from .interfaces import *
 
-REGEX_BODY = re.compile(r'''(-d.*)([{\[])(.*)([\]}])''')
 REGEX_HEADERS = re.compile(r'''(\-H[\s]*\')([\w\-\_\d\:\s\*\/\\\.]+)''')
 
 CONTENT_TYPES = {
@@ -26,15 +25,24 @@ class Issue:
     body: str
     content_type: str
     headers: dict
+    description: str
 
 @dataclass
 class Path:
     method: str
+    secrets: List[str] = field(default_factory=list)
     issues: List[Issue] = field(default_factory=list)
+    variables: Dict[str] = field(default_factory=dict)
 
     @classmethod
     def from_data(cls, method: str, json_data: dict) -> Path:
+
+        def clean_secret(secret: str) -> str:
+            return secret.replace("-", "").replace("_", "")
+
         o = cls(method=method)
+
+        objects = 1
 
         for issue in json_data.get("issues", []):
             content_type = CONTENT_TYPES[
@@ -42,18 +50,30 @@ class Path:
             ]
 
             url = issue.get("url")
-            path = urlparse(url).path
+            parsed_url = urlparse(url)
+
+            #
+            # Extract domain and schema as a variable
+            #
+            o.variables["schema"] = parsed_url.scheme
+            o.variables["host"] = parsed_url.netloc
+
+            path = parsed_url.path
             curl_command = issue.get("curl")
 
             # Try to get Curl data: '-d' option
             body = None
             if " -d " in curl_command:
+                body_starts = curl_command.find("-d") + 3
+                body_end = curl_command.find("-H")
 
-                # This regex only works for json payloads. We assume all
-                # payloads are json
-                if d := REGEX_BODY.search(curl_command):
-                    _, prefix, content, sufix = d.groups()
-                    body = f'{prefix}{content}{sufix}'
+                body = curl_command[body_starts:body_end].strip()
+
+                if body[0] in ("'", '"'):
+                    body = body[1:]
+
+                if body[-1] in ("'", '"'):
+                    body = body[:-1]
 
             # Try to get Curl headers: '-H' options
             headers = {}
@@ -61,13 +81,52 @@ class Path:
                 for match in found:
                     _, raw_header = match
                     header_key, header_value = raw_header.split(":")
-                    headers[header_key.strip()] = header_value.strip()
+
+                    header_key = header_key.strip()
+                    header_value = header_value.strip()
+
+                    # Try to find passwords, access tokens, etc
+                    if len(header_value) == header_value.count("*"):
+                        # This is a secret!
+                        secret_name = clean_secret(header_key)
+
+                        o.secrets.append(secret_name)
+
+                        value = f"{{{{{secret_name}}}}}"
+                    else:
+                        value = header_value.strip()
+
+                    headers[header_key.strip()] = value
+
+            if q := parsed_url.query:
+                new_url = f"{path}?{q}"
+            else:
+                new_url = path
+
+
+            description = ""
+            if desc_index := issue.get("injectionDescriptionParams", []):
+                description = desc_index[0]
+
+                if description == method:
+                    description = f"Testing '{method}' HTTP method"
+
+                elif any(x in description for x in ("/", "+")):
+                    description = f"Testing '{description}' values"
+
+                else:
+                    description = f"Testing dangerous values ({objects})"
+                    objects += 1
+            else:
+                description = f"Testing dangerous values ({objects})"
+                objects += 1
 
             o.issues.append(
                 Issue(
-                    url=url,
+                    url=new_url,
                     path=path,
                     body=body,
+                    description=description,
                     content_type=content_type,
                     headers=headers
                 )
