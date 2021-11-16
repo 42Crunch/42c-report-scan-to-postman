@@ -6,15 +6,16 @@ from urllib.parse import urlparse
 from typing import List, Union, Dict
 from dataclasses import dataclass, field
 
-from .interfaces import *
-
 REGEX_HEADERS = re.compile(r'''(\-H[\s]*\')([\w\-\_\d\:\s\*\/\\\.]+)''')
 
 CONTENT_TYPES = {
     '0': '',
+    '1': 'application/json; charset=utf-8',
+    '2': 'text/html; charset=utf-8',
     '3': 'application/x-www-form-urlencoded',
     '4': 'application/json',
-    '5': 'application/random+content+type'
+    '5': 'application/random+content+type',
+    '6': 'text/html'
 }
 
 
@@ -35,10 +36,13 @@ class Path:
     variables: Dict[str] = field(default_factory=dict)
 
     @classmethod
-    def from_data(cls, method: str, json_data: dict) -> Path:
+    def from_data(cls,
+                  method: str,
+                  json_data: dict,
+                  injection_keys: list) -> Path:
 
-        def clean_secret(secret: str) -> str:
-            return secret.replace("-", "").replace("_", "")
+        def clean_field(secret: str, replace_by: str = "") -> str:
+            return secret.replace("-", replace_by).replace("_", replace_by)
 
         o = cls(method=method)
 
@@ -88,7 +92,7 @@ class Path:
                     # Try to find passwords, access tokens, etc
                     if len(header_value) == header_value.count("*"):
                         # This is a secret!
-                        secret_name = clean_secret(header_key)
+                        secret_name = clean_field(header_key)
 
                         o.secrets.append(secret_name)
 
@@ -106,18 +110,20 @@ class Path:
 
             description = ""
             if desc_index := issue.get("injectionDescriptionParams", []):
-                description = desc_index[0]
+                tmp = desc_index[0]
 
-                if description == method:
+                if tmp == method:
                     description = f"Testing '{method}' HTTP method"
 
-                elif any(x in description for x in ("/", "+")):
-                    description = f"Testing '{description}' values"
+                elif any(x in tmp for x in ("/", "+")):
+                    description = f"Testing '{tmp}' values"
 
-                else:
-                    description = f"Testing dangerous values ({objects})"
-                    objects += 1
-            else:
+            if not description:
+                if key := issue.get("injectionKey", None):
+                    k = injection_keys[key]
+                    description = clean_field(k, " ").capitalize()
+
+            if not description:
                 description = f"Testing dangerous values ({objects})"
                 objects += 1
 
@@ -149,10 +155,14 @@ class CSRReport:
             date=json_data.get("date")
         )
 
+        injection_keys = json_data.get(
+            "data", {}
+        ).get("index", {}).get("injectionKeys")
+
         for path, path_data in data.get("paths").items():
 
             for method, method_data in path_data.items():
-                path_obj = Path.from_data(method, method_data)
+                path_obj = Path.from_data(method, method_data, injection_keys)
 
                 if path_obj.issues:
                     o.paths[path] = path_obj
