@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'c42_csr2postman/**'
   workflow_dispatch:
 
 jobs:

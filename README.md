@@ -24,8 +24,6 @@ $ pip install git+https://github.com/42c-presales/42c-report-scan-to-postman.git
 
 ```bash
 $ 42c-csr -h
-usage: 42c-csr [-h] [-d] [-o OUTPUT_FILE] CSR_REPORT_FILE
-
 42Crunch Conformance Scan Report 2 Postman convertor
 
 positional arguments:
@@ -35,7 +33,11 @@ optional arguments:
   -h, --help            show this help message and exit
   -d, --debug           enable debugging mode
   -o OUTPUT_FILE, --output-file OUTPUT_FILE
-                        output Postman file. Default: '42c_conformance_scan_report_postman.json' 
+                        output Postman file. Default: '42c_conformance_scan_report_postman.json'
+
+filtering:
+  -P, --only-priority   only choose priority issues
+ 
 ```
 
 ### Converting a Conformance Scan Report
