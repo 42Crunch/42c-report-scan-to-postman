@@ -1,0 +1,94 @@
+name: Create Releases
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+
+  build-windows:
+    name: Create Windows releases
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+
+      - name: Intall dependencies
+        run: |
+          python3 -m pip install "pyinstaller==4.3"
+
+      - name: Packing
+        run: |
+          cd c42_csr2postman
+          pyinstaller -c --onefile -n 42c2Postman.exe __main__.py
+
+      - name: Archive artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist-files
+          path: c42_csr2postman/dist/*
+
+  build-unix:
+    name: Create Unix releases
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, macOS-latest ]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+
+      - name: Intall dependencies
+        run: |
+          python3 -m pip install "pyinstaller==4.3"
+
+      - name: Packing
+        run: |
+          cd c42_csr2postman
+          if [ "$RUNNER_OS" == "Linux" ]; then
+            pyinstaller -c --onefile -n 42c2Postman-linux.bin __main__.py
+            chmod +x dist/42c2Postman-linux.bin
+            zip dist/Seeder-linux.bin.zip dist/42c2Postman-linux.bin
+            rm -rf dist/42c2Postman.bin
+
+          elif [ "$RUNNER_OS" == "macOS" ]; then
+            pyinstaller -c --onefile -n 42c2Postman-OSX.app __main__.py
+            chmod +x dist/42c2Postman-OSX.app
+            zip dist/42c2Postman-OSX.app.zip dist/42c2Postman-OSX.app
+            rm -rf dist/42c2Postman-OSX.app
+          fi
+
+      - name: Archive artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist-files
+          path: c42_csr2postman/dist/*
+
+  releases:
+    name: Create Linux release
+    runs-on: ubuntu-latest
+    needs:
+      - build-windows
+      - build-unix
+    steps:
+      - name: Download math result for job 2
+        uses: actions/download-artifact@v2
+        with:
+          name: dist-files
+          path: dist
+
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
+          automatic_release_tag: "latest"
+          title: "New release"
+          files: dist/*

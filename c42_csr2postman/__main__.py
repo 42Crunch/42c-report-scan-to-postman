@@ -21,6 +21,11 @@ def csr2postman(parsed_cli: argparse.Namespace):
     csr_report = CSRReport.from_csr_data(csr_report_data)
 
     #
+    # User filters
+    #
+    only_priority = parsed_cli.only_priority
+
+    #
     # Transform
     #
 
@@ -30,6 +35,11 @@ def csr2postman(parsed_cli: argparse.Namespace):
     variables = {}
 
     for path, path_object in csr_report.paths.items():
+
+        if only_priority and \
+                path_object.total_unexpected > 0 \
+                    and path_object.total_failure > 0:
+                continue
 
         end_points = []
 
@@ -48,7 +58,7 @@ def csr2postman(parsed_cli: argparse.Namespace):
             # Setup variables
             # -------------------------------------------------------------------------
             if all(x in variables for x in ("host", "schema")):
-                h_host = f"{_write_postman_variable_('host')}"\
+                h_host = f"{_write_postman_variable_('host')}" \
                          f"://{_write_postman_variable_('schema')}"
 
                 host = [h_host]
@@ -100,8 +110,8 @@ def csr2postman(parsed_cli: argparse.Namespace):
     # Build postman configuration file
     # -------------------------------------------------------------------------
     file_secrets = [
-                PostmanProperty(key=sec, value="")
-                for sec in secrets
+        PostmanProperty(key=sec, value="")
+        for sec in secrets
     ]
 
     file_variables = [
@@ -136,7 +146,15 @@ def main():
                         help="enable debugging mode")
     parser.add_argument('-o', '--output-file',
                         default="42c_conformance_scan_report_postman.json",
-                        help="output Postman file. Default: '42c_conformance_scan_report_postman.json'")
+                        help="output Postman file. Default: "
+                             "'42c_conformance_scan_report_postman.json'")
+
+    filters = parser.add_argument_group("filtering")
+    filters.add_argument('-P', '--only-priority',
+                         action="store_true",
+                         default=False,
+                         help="only choose priority issues")
+
     parsed_cli = parser.parse_args()
 
     try:

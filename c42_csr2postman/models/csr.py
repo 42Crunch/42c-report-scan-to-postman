@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import re
 
+from typing import List, Dict
 from urllib.parse import urlparse
-from typing import List, Union, Dict
 from dataclasses import dataclass, field
 
 REGEX_HEADERS = re.compile(r'''(\-H[\s]*\')([\w\-\_\d\:\s\*\/\\\.]+)''')
@@ -31,6 +31,8 @@ class Issue:
 @dataclass
 class Path:
     method: str
+    total_failure: int = 0
+    total_unexpected: int = 0
     secrets: List[str] = field(default_factory=list)
     issues: List[Issue] = field(default_factory=list)
     variables: Dict[str] = field(default_factory=dict)
@@ -48,7 +50,12 @@ class Path:
 
         objects = 1
 
-        for issue in json_data.get("issues", []):
+        issues = json_data.get("issues", [])
+
+        o.total_failure = json_data.get("totalFailure", len(issues))
+        o.total_unexpected = json_data.get("totalUnexpected", 0)
+
+        for issue in issues:
             content_type = CONTENT_TYPES[
                 str(issue.get("requestContentType"))
             ]

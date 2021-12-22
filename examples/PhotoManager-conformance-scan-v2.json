@@ -1,0 +1,539 @@
+{
+    "tid": "23d80727-5939-41eb-ac4b-cd39ebc0ca6e",
+    "aid": "9d8cc5d2-37a5-416e-8204-26fba414c8cc",
+    "cid": "",
+    "date": "2021-12-20T23:06:16Z",
+    "data": {
+        "indexed": true,
+        "index": {
+            "jsonPointers": [],
+            "contentTypes": [],
+            "injectionKeys": [],
+            "injectionDescriptions": [],
+            "responseKeys": [],
+            "responseDescriptions": []
+        },
+        "scanVersion": "1.14.1",
+        "scanReportVersion": "2.2.0",
+        "commit": "83c525177f3a9b70ef54d05f11139cba1f275f72-N",
+        "host": "http://photo-demo.westeurope.cloudapp.azure.com/version1",
+        "errorsOnly": true,
+        "summary": {
+            "startDate": "2021-12-20T23:06:16.782515933Z",
+            "endDate": "2021-12-20T23:06:16.955017517Z",
+            "openapiId": "17058736-78e9-47f6-a5e8-12a22f81b260",
+            "state": "finished",
+            "exitCode": 0,
+            "processingError": "",
+            "estimatedTotalRequest": 144,
+            "totalRequest": 42,
+            "criticality": 0,
+            "issues": 0,
+            "criticalIssues": 0,
+            "highIssues": 0,
+            "mediumIssues": 0,
+            "lowIssues": 0,
+            "infoIssues": 0
+        },
+        "paths": {
+            "/api/admin/all_users": {
+                "delete": {
+                    "checked": true,
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 1,
+                    "totalExpected": 1,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                },
+                "get": {
+                    "checked": false,
+                    "reason": "operation-happy-path-failed",
+                    "skipReasonDetails": [
+                        "The response is not valid : The content type ‘application/problem+json’ in the received response is not defined in the OpenAPI definition of the API"
+                    ],
+                    "curlHappyPath": "curl -X 'GET' -H 'X-Access-Token: ******' 'http://photo-demo.westeurope.cloudapp.azure.com/version1/api/admin/all_users'",
+                    "happyPath": {
+                        "key": "happy-path-response-invalid",
+                        "excessiveDataExposure": false,
+                        "curl": "curl -X 'GET' -H 'X-Access-Token: ******' 'http://photo-demo.westeurope.cloudapp.azure.com/version1/api/admin/all_users'",
+                        "curlBodySkipped": false,
+                        "responseHttpStatusCode": 502,
+                        "responseContentType": "application/problem+json",
+                        "responseBodyLength": 113,
+                        "responseHttp": "SFRUUC8xLjEgNTAyIEJhZCBHYXRld2F5DQpDb250ZW50LUxlbmd0aDogMTEzDQpDb25uZWN0aW9uOiBrZWVwLWFsaXZlDQpDb250ZW50LVR5cGU6IGFwcGxpY2F0aW9uL3Byb2JsZW0ranNvbg0KRGF0ZTogTW9uLCAyMCBEZWMgMjAyMSAyMzowNjoxNiBHTVQNCg0KeyJzdGF0dXMiOjUwMiwidGl0bGUiOiJyZXNwb25zZSB2YWxpZGF0aW9uIiwiZGV0YWlsIjoiQmFkIEdhdGV3YXkiLCJ1dWlkIjoiMWExOTA0ZjctNTdlZS00ZjNmLTliZWMtNTJhMmQzZTE1YjQ5In0="
+                    },
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 0,
+                    "totalExpected": 0,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                },
+                "head": {
+                    "checked": true,
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 1,
+                    "totalExpected": 1,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                },
+                "options": {
+                    "checked": true,
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 1,
+                    "totalExpected": 1,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                },
+                "patch": {
+                    "checked": true,
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 1,
+                    "totalExpected": 1,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                },
+                "post": {
+                    "checked": true,
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 1,
+                    "totalExpected": 1,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                },
+                "put": {
+                    "checked": true,
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 1,
+                    "totalExpected": 1,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                },
+                "trace": {
+                    "checked": true,
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 1,
+                    "totalExpected": 1,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                }
+            },
+            "/api/admin/users/search": {
+                "delete": {
+                    "checked": true,
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 1,
+                    "totalExpected": 1,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                },
+                "get": {
+                    "checked": false,
+                    "reason": "operation-happy-path-failed",
+                    "skipReasonDetails": [
+                        "The response is not valid : The content type ‘application/problem+json’ in the received response is not defined in the OpenAPI definition of the API"
+                    ],
+                    "curlHappyPath": "curl -X 'GET' -H 'X-Access-Token: ******' 'http://photo-demo.westeurope.cloudapp.azure.com/version1/api/admin/users/search?search=k0bhyE'",
+                    "happyPath": {
+                        "key": "happy-path-response-invalid",
+                        "excessiveDataExposure": false,
+                        "curl": "curl -X 'GET' -H 'X-Access-Token: ******' 'http://photo-demo.westeurope.cloudapp.azure.com/version1/api/admin/users/search?search=k0bhyE'",
+                        "curlBodySkipped": false,
+                        "responseHttpStatusCode": 502,
+                        "responseContentType": "application/problem+json",
+                        "responseBodyLength": 113,
+                        "responseHttp": "SFRUUC8xLjEgNTAyIEJhZCBHYXRld2F5DQpDb250ZW50LUxlbmd0aDogMTEzDQpDb25uZWN0aW9uOiBrZWVwLWFsaXZlDQpDb250ZW50LVR5cGU6IGFwcGxpY2F0aW9uL3Byb2JsZW0ranNvbg0KRGF0ZTogTW9uLCAyMCBEZWMgMjAyMSAyMzowNjoxNiBHTVQNCg0KeyJzdGF0dXMiOjUwMiwidGl0bGUiOiJyZXNwb25zZSB2YWxpZGF0aW9uIiwiZGV0YWlsIjoiQmFkIEdhdGV3YXkiLCJ1dWlkIjoiZmUxYjc1ZjktMTNhYS00ZjVkLTk3OGItMjMxYjkwNzAwZmM2In0="
+                    },
+                    "estimatedTotalRequest": 4,
+                    "totalRequest": 0,
+                    "totalExpected": 0,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                },
+                "head": {
+                    "checked": true,
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 1,
+                    "totalExpected": 1,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                },
+                "options": {
+                    "checked": true,
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 1,
+                    "totalExpected": 1,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                },
+                "patch": {
+                    "checked": true,
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 1,
+                    "totalExpected": 1,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                },
+                "post": {
+                    "checked": true,
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 1,
+                    "totalExpected": 1,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                },
+                "put": {
+                    "checked": true,
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 1,
+                    "totalExpected": 1,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                },
+                "trace": {
+                    "checked": true,
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 1,
+                    "totalExpected": 1,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                }
+            },
+            "/api/login": {
+                "delete": {
+                    "checked": true,
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 1,
+                    "totalExpected": 1,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                },
+                "get": {
+                    "checked": true,
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 1,
+                    "totalExpected": 1,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                },
+                "head": {
+                    "checked": true,
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 1,
+                    "totalExpected": 1,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                },
+                "options": {
+                    "checked": true,
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 1,
+                    "totalExpected": 1,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                },
+                "patch": {
+                    "checked": true,
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 1,
+                    "totalExpected": 1,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                },
+                "post": {
+                    "checked": false,
+                    "reason": "operation-happy-path-failed",
+                    "skipReasonDetails": [
+                        "The API response is not successful, the HTTP status must be between 200 and 299 or 404"
+                    ],
+                    "curlHappyPath": "curl -X 'POST' -d 'pass=hellopixi&user=userscanlogin%40acme.com' -H 'Content-Type: application/x-www-form-urlencoded' 'http://photo-demo.westeurope.cloudapp.azure.com/version1/api/login'",
+                    "happyPath": {
+                        "key": "happy-path-response-not-successful",
+                        "excessiveDataExposure": false,
+                        "curl": "curl -X 'POST' -d 'pass=hellopixi&user=userscanlogin%40acme.com' -H 'Content-Type: application/x-www-form-urlencoded' 'http://photo-demo.westeurope.cloudapp.azure.com/version1/api/login'",
+                        "curlBodySkipped": false,
+                        "responseHttpStatusCode": 401,
+                        "responseContentType": "application/json; charset=utf-8",
+                        "responseBodyLength": 38,
+                        "responseHttp": "SFRUUC8xLjEgNDAxIFVuYXV0aG9yaXplZA0KQ29udGVudC1MZW5ndGg6IDM4DQpDb25uZWN0aW9uOiBrZWVwLWFsaXZlDQpDb250ZW50LVNlY3VyaXR5LVBvbGljeTogZGVmYXVsdC1zcmM6ICdzZWxmJzsgdXBncmFkZS1pbnNlY3VyZS1yZXF1ZXN0czsgcmVmZXJyZXIgbm8tcmVmZXJyZXINCkNvbnRlbnQtVHlwZTogYXBwbGljYXRpb24vanNvbjsgY2hhcnNldD11dGYtOA0KRGF0ZTogTW9uLCAyMCBEZWMgMjAyMSAyMzowNjoxNiBHTVQNCkV0YWc6IFcvIjI2LUpwczRyS1g2bmhSSFgvN09QajY0eU1FYXVSOCINClN0cmljdC1UcmFuc3BvcnQtU2VjdXJpdHk6IG1heC1hZ2U9MzYwMDsgaW5jbHVkZVN1YmRvbWFpbnM7DQpYLUNvbnRlbnQtVHlwZS1PcHRpb25zOiBub3NuaWZmDQpYLUZyYW1lLU9wdGlvbnM6IGRlbnkNClgtWHNzLVByb3RlY3Rpb246IDE7IG1vZGU9YmxvY2sNCg0KeyJtZXNzYWdlIjoic29ycnkgcGFsLCBpbnZhbGlkIGxvZ2luIn0="
+                    },
+                    "estimatedTotalRequest": 9,
+                    "totalRequest": 0,
+                    "totalExpected": 0,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                },
+                "put": {
+                    "checked": true,
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 1,
+                    "totalExpected": 1,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                },
+                "trace": {
+                    "checked": true,
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 1,
+                    "totalExpected": 1,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                }
+            },
+            "/api/register": {
+                "delete": {
+                    "checked": true,
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 1,
+                    "totalExpected": 1,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                },
+                "get": {
+                    "checked": true,
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 1,
+                    "totalExpected": 1,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                },
+                "head": {
+                    "checked": true,
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 1,
+                    "totalExpected": 1,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                },
+                "options": {
+                    "checked": true,
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 1,
+                    "totalExpected": 1,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                },
+                "patch": {
+                    "checked": true,
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 1,
+                    "totalExpected": 1,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                },
+                "post": {
+                    "checked": false,
+                    "reason": "operation-happy-path-failed",
+                    "skipReasonDetails": [
+                        "The response is not valid : The content type ‘application/problem+json’ in the received response is not defined in the OpenAPI definition of the API"
+                    ],
+                    "curlHappyPath": "curl -X 'POST' -d '{\"account_balance\":937.5345424472631,\"id\":864,\"is_admin\":true,\"name\":\"QM3ql\",\"pass\":\"\\u0026M#Qvk\",\"user\":\"bfBcR88F@LTkTxQE6.lS\"}' -H 'Content-Type: application/json' 'http://photo-demo.westeurope.cloudapp.azure.com/version1/api/register'",
+                    "happyPath": {
+                        "key": "happy-path-response-invalid",
+                        "excessiveDataExposure": false,
+                        "curl": "curl -X 'POST' -d '{\"account_balance\":937.5345424472631,\"id\":864,\"is_admin\":true,\"name\":\"QM3ql\",\"pass\":\"\\u0026M#Qvk\",\"user\":\"bfBcR88F@LTkTxQE6.lS\"}' -H 'Content-Type: application/json' 'http://photo-demo.westeurope.cloudapp.azure.com/version1/api/register'",
+                        "curlBodySkipped": false,
+                        "responseHttpStatusCode": 429,
+                        "responseContentType": "application/problem+json",
+                        "responseBodyLength": 117,
+                        "responseHttp": "SFRUUC8xLjEgNDI5IFRvbyBNYW55IFJlcXVlc3RzDQpDb250ZW50LUxlbmd0aDogMTE3DQpDb25uZWN0aW9uOiBrZWVwLWFsaXZlDQpDb250ZW50LVR5cGU6IGFwcGxpY2F0aW9uL3Byb2JsZW0ranNvbg0KRGF0ZTogTW9uLCAyMCBEZWMgMjAyMSAyMzowNjoxNiBHTVQNClJldHJ5LUFmdGVyOiAxNQ0KDQp7InRpdGxlIjoiVG9vIE1hbnkgUmVxdWVzdHMiLCJkZXRhaWwiOiJUb28gTWFueSBSZXF1ZXN0cyIsInV1aWQiOiJkNGRjZmQ3ZC04MjgxLTQ0MjAtYTExMy0wODk3OTBhZmZlOWEiLCJzdGF0dXMiOjQyOX0="
+                    },
+                    "estimatedTotalRequest": 55,
+                    "totalRequest": 0,
+                    "totalExpected": 0,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                },
+                "put": {
+                    "checked": true,
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 1,
+                    "totalExpected": 1,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                },
+                "trace": {
+                    "checked": true,
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 1,
+                    "totalExpected": 1,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                }
+            },
+            "/api/user/edit_info": {
+                "delete": {
+                    "checked": true,
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 1,
+                    "totalExpected": 1,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                },
+                "get": {
+                    "checked": true,
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 1,
+                    "totalExpected": 1,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                },
+                "head": {
+                    "checked": true,
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 1,
+                    "totalExpected": 1,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                },
+                "options": {
+                    "checked": true,
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 1,
+                    "totalExpected": 1,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                },
+                "patch": {
+                    "checked": true,
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 1,
+                    "totalExpected": 1,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                },
+                "post": {
+                    "checked": true,
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 1,
+                    "totalExpected": 1,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                },
+                "put": {
+                    "checked": false,
+                    "reason": "operation-happy-path-failed",
+                    "skipReasonDetails": [
+                        "The response is not valid : The content type ‘application/problem+json’ in the received response is not defined in the OpenAPI definition of the API"
+                    ],
+                    "curlHappyPath": "curl -X 'PUT' -d '{\"account_balance\":409.5998965463292,\"email\":\"f@hVl.Pbj\",\"name\":\"K4C0aV3\\u000bWA2\\n.\"}' -H 'Content-Type: application/json' -H 'X-Access-Token: ******' 'http://photo-demo.westeurope.cloudapp.azure.com/version1/api/user/edit_info'",
+                    "happyPath": {
+                        "key": "happy-path-response-invalid",
+                        "excessiveDataExposure": false,
+                        "curl": "curl -X 'PUT' -d '{\"account_balance\":409.5998965463292,\"email\":\"f@hVl.Pbj\",\"name\":\"K4C0aV3\\u000bWA2\\n.\"}' -H 'Content-Type: application/json' -H 'X-Access-Token: ******' 'http://photo-demo.westeurope.cloudapp.azure.com/version1/api/user/edit_info'",
+                        "curlBodySkipped": false,
+                        "responseHttpStatusCode": 429,
+                        "responseContentType": "application/problem+json",
+                        "responseBodyLength": 117,
+                        "responseHttp": "SFRUUC8xLjEgNDI5IFRvbyBNYW55IFJlcXVlc3RzDQpDb250ZW50LUxlbmd0aDogMTE3DQpDb25uZWN0aW9uOiBrZWVwLWFsaXZlDQpDb250ZW50LVR5cGU6IGFwcGxpY2F0aW9uL3Byb2JsZW0ranNvbg0KRGF0ZTogTW9uLCAyMCBEZWMgMjAyMSAyMzowNjoxNiBHTVQNClJldHJ5LUFmdGVyOiAxNQ0KDQp7InRpdGxlIjoiVG9vIE1hbnkgUmVxdWVzdHMiLCJkZXRhaWwiOiJUb28gTWFueSBSZXF1ZXN0cyIsInV1aWQiOiJlZWM3MWI0YS0zZWI1LTQzNmItYmRkZi02NTEyYTQ4YTcyODgiLCJzdGF0dXMiOjQyOX0="
+                    },
+                    "estimatedTotalRequest": 32,
+                    "totalRequest": 0,
+                    "totalExpected": 0,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                },
+                "trace": {
+                    "checked": true,
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 1,
+                    "totalExpected": 1,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                }
+            },
+            "/api/user/info": {
+                "delete": {
+                    "checked": true,
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 1,
+                    "totalExpected": 1,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                },
+                "get": {
+                    "checked": false,
+                    "reason": "operation-happy-path-failed",
+                    "skipReasonDetails": [
+                        "The response is not valid : The content type ‘application/problem+json’ in the received response is not defined in the OpenAPI definition of the API"
+                    ],
+                    "curlHappyPath": "curl -X 'GET' -H 'X-Access-Token: ******' 'http://photo-demo.westeurope.cloudapp.azure.com/version1/api/user/info'",
+                    "happyPath": {
+                        "key": "happy-path-response-invalid",
+                        "excessiveDataExposure": false,
+                        "curl": "curl -X 'GET' -H 'X-Access-Token: ******' 'http://photo-demo.westeurope.cloudapp.azure.com/version1/api/user/info'",
+                        "curlBodySkipped": false,
+                        "responseHttpStatusCode": 429,
+                        "responseContentType": "application/problem+json",
+                        "responseBodyLength": 117,
+                        "responseHttp": "SFRUUC8xLjEgNDI5IFRvbyBNYW55IFJlcXVlc3RzDQpDb250ZW50LUxlbmd0aDogMTE3DQpDb25uZWN0aW9uOiBrZWVwLWFsaXZlDQpDb250ZW50LVR5cGU6IGFwcGxpY2F0aW9uL3Byb2JsZW0ranNvbg0KRGF0ZTogTW9uLCAyMCBEZWMgMjAyMSAyMzowNjoxNiBHTVQNClJldHJ5LUFmdGVyOiAxNQ0KDQp7InRpdGxlIjoiVG9vIE1hbnkgUmVxdWVzdHMiLCJkZXRhaWwiOiJUb28gTWFueSBSZXF1ZXN0cyIsInV1aWQiOiJlMGVjMjZjMy1jMGM0LTQ5OTQtOGE2OS0xZGI1M2M3MmQyODgiLCJzdGF0dXMiOjQyOX0="
+                    },
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 0,
+                    "totalExpected": 0,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                },
+                "head": {
+                    "checked": true,
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 1,
+                    "totalExpected": 1,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                },
+                "options": {
+                    "checked": true,
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 1,
+                    "totalExpected": 1,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                },
+                "patch": {
+                    "checked": true,
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 1,
+                    "totalExpected": 1,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                },
+                "post": {
+                    "checked": true,
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 1,
+                    "totalExpected": 1,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                },
+                "put": {
+                    "checked": true,
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 1,
+                    "totalExpected": 1,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                },
+                "trace": {
+                    "checked": true,
+                    "estimatedTotalRequest": 1,
+                    "totalRequest": 1,
+                    "totalExpected": 1,
+                    "totalUnexpected": 0,
+                    "totalFailure": 0
+                }
+            }
+        }
+    },
+    "type": "JSON",
+    "enc": "base64",
+    "attr": {
+        "data": {
+            "apiId": "",
+            "exitCode": "0",
+            "requestDone": "42",
+            "state": "finished",
+            "unexpectedResponse": "0"
+        }
+    },
+    "log": ""
+}
