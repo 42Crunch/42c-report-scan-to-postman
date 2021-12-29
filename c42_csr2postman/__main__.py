@@ -59,8 +59,8 @@ def csr2postman(parsed_cli: argparse.Namespace):
             # Setup variables
             # -------------------------------------------------------------------------
             if all(x in variables for x in ("host", "schema")):
-                h_host = f"{_write_postman_variable_('host')}" \
-                         f"://{_write_postman_variable_('schema')}"
+                h_host = f"{_write_postman_variable_('schema')}" \
+                         f"://{_write_postman_variable_('host')}"
 
                 host = [h_host]
                 raw = f"{h_host}{issue.url}"
