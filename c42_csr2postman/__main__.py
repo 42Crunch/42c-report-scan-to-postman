@@ -36,10 +36,7 @@ def csr2postman(parsed_cli: argparse.Namespace):
 
     for path, path_object in csr_report.paths.items():
 
-        if only_priority and \
-                path_object.total_unexpected > 0 \
-                    and path_object.total_failure > 0:
-                continue
+        
 
         end_points = []
 
@@ -51,6 +48,10 @@ def csr2postman(parsed_cli: argparse.Namespace):
                 variables[k] = v
 
         for issue in path_object.issues:
+
+            if only_priority and \
+                issue.priority > 0:
+                continue
 
             url_parsed = urlparse(issue.url)
 
@@ -165,4 +166,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
