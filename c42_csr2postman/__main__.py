@@ -122,7 +122,7 @@ def csr2postman(parsed_cli: argparse.Namespace):
 
     postman = PostmanConfigFile(
         info=PostmanInfo(
-            name=f"42Crunch Conformance Scan Report",
+            name=f"42Crunch Scan Report - API {csr_report.aid}",
             description=f"Postman collection for test scan"
                         f" date '{csr_report.date}'",
         ),

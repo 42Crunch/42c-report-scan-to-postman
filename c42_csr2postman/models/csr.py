@@ -164,6 +164,7 @@ class Path:
 class CSRReport:
     host: str
     date: str
+    aid: str
     paths: Dict[str, Path] = field(default_factory=dict)
 
     @classmethod
@@ -172,7 +173,8 @@ class CSRReport:
 
         o = cls(
             host=data.get("host"),
-            date=json_data.get("date")
+            date=json_data.get("date"),
+            aid=json_data.get("aid")
         )
 
         injection_keys = json_data.get(
