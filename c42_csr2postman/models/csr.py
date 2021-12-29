@@ -186,11 +186,11 @@ class CSRReport:
         ).get("index", {}).get("responseKeys")
 
         for path, path_data in data.get("paths").items():
-
+            
             for method, method_data in path_data.items():
                 path_obj = Path.from_data(method, method_data, injection_keys, response_keys)
-
+                issue_id = path + "_"+ method
                 if path_obj.issues:
-                    o.paths[path] = path_obj
+                    o.paths[issue_id] = path_obj
 
         return o
