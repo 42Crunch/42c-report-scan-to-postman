@@ -27,12 +27,14 @@ class Issue:
     content_type: str
     headers: dict
     description: str
+    priority: int
 
 @dataclass
 class Path:
     method: str
     total_failure: int = 0
     total_unexpected: int = 0
+    total_expected: int = 0
     secrets: List[str] = field(default_factory=list)
     issues: List[Issue] = field(default_factory=list)
     variables: Dict[str] = field(default_factory=dict)
@@ -41,7 +43,8 @@ class Path:
     def from_data(cls,
                   method: str,
                   json_data: dict,
-                  injection_keys: list) -> Path:
+                  injection_keys: list,
+                  response_keys: list) -> Path:
 
         def clean_field(secret: str, replace_by: str = "") -> str:
             return secret.replace("-", replace_by).replace("_", replace_by)
@@ -49,16 +52,25 @@ class Path:
         o = cls(method=method)
 
         objects = 1
+        o.total_expected = json_data.get("totalExpected")
+        o.total_unexpected = json_data.get("totalUnexpected")
+        o.total_failure = json_data.get("totalFailure")
 
         issues = json_data.get("issues", [])
-
-        o.total_failure = json_data.get("totalFailure", len(issues))
-        o.total_unexpected = json_data.get("totalUnexpected", 0)
 
         for issue in issues:
             content_type = CONTENT_TYPES[
                 str(issue.get("requestContentType"))
             ]
+
+            prio_issue = 0
+            if (o.total_unexpected > 0 or o.total_failure > 0 ):
+                #Check current issue response_key as one or multiple issues are higher priority
+                responseKey_array = issue.get("apiResponseAnalysis", [])
+                for tmp_response_object in responseKey_array:
+                    tmp_responseKey_label = response_keys[tmp_response_object.get("responseKey")]
+                    if ("response-error-unexpected-scan" in tmp_responseKey_label ):
+                        prio_issue = 1
 
             url = issue.get("url")
             parsed_url = urlparse(url)
@@ -141,7 +153,8 @@ class Path:
                     body=body,
                     description=description,
                     content_type=content_type,
-                    headers=headers
+                    headers=headers,
+                    priority=prio_issue
                 )
             )
 
@@ -151,6 +164,7 @@ class Path:
 class CSRReport:
     host: str
     date: str
+    aid: str
     paths: Dict[str, Path] = field(default_factory=dict)
 
     @classmethod
@@ -159,19 +173,24 @@ class CSRReport:
 
         o = cls(
             host=data.get("host"),
-            date=json_data.get("date")
+            date=json_data.get("date"),
+            aid=json_data.get("aid")
         )
 
         injection_keys = json_data.get(
             "data", {}
         ).get("index", {}).get("injectionKeys")
 
+        response_keys = json_data.get(
+            "data", {}
+        ).get("index", {}).get("responseKeys")
+
         for path, path_data in data.get("paths").items():
-
+            
             for method, method_data in path_data.items():
-                path_obj = Path.from_data(method, method_data, injection_keys)
-
+                path_obj = Path.from_data(method, method_data, injection_keys, response_keys)
+                issue_id = path + "_"+ method
                 if path_obj.issues:
-                    o.paths[path] = path_obj
+                    o.paths[issue_id] = path_obj
 
         return o

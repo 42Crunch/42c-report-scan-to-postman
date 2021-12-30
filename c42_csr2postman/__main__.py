@@ -36,10 +36,7 @@ def csr2postman(parsed_cli: argparse.Namespace):
 
     for path, path_object in csr_report.paths.items():
 
-        if only_priority and \
-                path_object.total_unexpected > 0 \
-                    and path_object.total_failure > 0:
-                continue
+        
 
         end_points = []
 
@@ -52,14 +49,18 @@ def csr2postman(parsed_cli: argparse.Namespace):
 
         for issue in path_object.issues:
 
+            if only_priority and \
+                issue.priority > 0:
+                continue
+
             url_parsed = urlparse(issue.url)
 
             # -------------------------------------------------------------------------
             # Setup variables
             # -------------------------------------------------------------------------
             if all(x in variables for x in ("host", "schema")):
-                h_host = f"{_write_postman_variable_('host')}" \
-                         f"://{_write_postman_variable_('schema')}"
+                h_host = f"{_write_postman_variable_('schema')}" \
+                         f"://{_write_postman_variable_('host')}"
 
                 host = [h_host]
                 raw = f"{h_host}{issue.url}"
@@ -121,7 +122,7 @@ def csr2postman(parsed_cli: argparse.Namespace):
 
     postman = PostmanConfigFile(
         info=PostmanInfo(
-            name=f"42Crunch Conformance Scan Report",
+            name=f"42Crunch Scan Report - API {csr_report.aid}",
             description=f"Postman collection for test scan"
                         f" date '{csr_report.date}'",
         ),
@@ -165,4 +166,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
