@@ -2,6 +2,10 @@
 
 This Projects allows to convert a 42 Crunch Conformance Report into a Postman Collection.
 
+## Requirements
+
+The tool only works properly with scan reports created with version 1.14 or later (Dec 2021 Release).
+
 ## Install
 
 ### Cloning repository
