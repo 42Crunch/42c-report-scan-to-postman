@@ -18,7 +18,7 @@ def csr2postman_v1(parsed_cli: argparse.Namespace):
         raise Crunch42Exception(f"file '{csr_report_file}' not found")
 
     # Load report
-    csr_report = CSRReportV1.from_csr_data(csr_report_data)
+    csr_report = CSRReport.from_csr_data(csr_report_data)
 
     #
     # User filters
@@ -36,7 +36,7 @@ def csr2postman_v1(parsed_cli: argparse.Namespace):
 
     for path, path_object in csr_report.paths.items():
 
-        
+
 
         end_points = []
 

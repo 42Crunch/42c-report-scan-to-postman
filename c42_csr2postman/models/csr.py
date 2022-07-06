@@ -59,9 +59,12 @@ class Path:
         issues = json_data.get("issues", [])
 
         for issue in issues:
-            content_type = CONTENT_TYPES[
-                str(issue.get("requestContentType"))
-            ]
+            try:
+                content_type = CONTENT_TYPES[
+                    str(issue.get("requestContentType"))
+                ]
+            except KeyError:
+                content_type = ""
 
             prio_issue = 0
             if (o.total_unexpected > 0 or o.total_failure > 0 ):
@@ -186,7 +189,7 @@ class CSRReport:
         ).get("index", {}).get("responseKeys")
 
         for path, path_data in data.get("paths").items():
-            
+
             for method, method_data in path_data.items():
                 path_obj = Path.from_data(method, method_data, injection_keys, response_keys)
                 issue_id = path + "_"+ method
