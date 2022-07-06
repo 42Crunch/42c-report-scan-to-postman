@@ -7,7 +7,7 @@ from c42_csr2postman.exceptions import *
 def _write_postman_variable_(variable: str) -> str:
     return f"{{{{{variable}}}}}"
 
-def csr2postman(parsed_cli: argparse.Namespace):
+def csr2postman_v1(parsed_cli: argparse.Namespace):
     postman_output = parsed_cli.output_file
     csr_report_file = parsed_cli.CSR_REPORT_FILE
 
@@ -18,7 +18,7 @@ def csr2postman(parsed_cli: argparse.Namespace):
         raise Crunch42Exception(f"file '{csr_report_file}' not found")
 
     # Load report
-    csr_report = CSRReport.from_csr_data(csr_report_data)
+    csr_report = CSRReportV1.from_csr_data(csr_report_data)
 
     #
     # User filters
@@ -158,7 +158,7 @@ def main():
     parsed_cli = parser.parse_args()
 
     try:
-        csr2postman(parsed_cli)
+        csr2postman_v1(parsed_cli)
     except Crunch42Exception as e:
         print(f"[!] {e}")
 

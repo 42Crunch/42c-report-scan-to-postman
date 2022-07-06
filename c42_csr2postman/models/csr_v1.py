@@ -20,7 +20,7 @@ CONTENT_TYPES = {
 
 
 @dataclass
-class Issue:
+class IssueV1:
     url: str
     path: str
     body: str
@@ -29,19 +29,19 @@ class Issue:
     description: str
 
 @dataclass
-class Path:
+class PathV1:
     method: str
     total_failure: int = 0
     total_unexpected: int = 0
     secrets: List[str] = field(default_factory=list)
-    issues: List[Issue] = field(default_factory=list)
+    issues: List[IssueV1] = field(default_factory=list)
     variables: Dict[str] = field(default_factory=dict)
 
     @classmethod
     def from_data(cls,
                   method: str,
                   json_data: dict,
-                  injection_keys: list) -> Path:
+                  injection_keys: list) -> PathV1:
 
         def clean_field(secret: str, replace_by: str = "") -> str:
             return secret.replace("-", replace_by).replace("_", replace_by)
@@ -56,9 +56,12 @@ class Path:
         o.total_unexpected = json_data.get("totalUnexpected", 0)
 
         for issue in issues:
-            content_type = CONTENT_TYPES[
-                str(issue.get("requestContentType"))
-            ]
+            try:
+                content_type = CONTENT_TYPES[
+                    str(issue.get("requestContentType"))
+                ]
+            except KeyError:
+                content_type = ""
 
             url = issue.get("url")
             parsed_url = urlparse(url)
@@ -135,7 +138,7 @@ class Path:
                 objects += 1
 
             o.issues.append(
-                Issue(
+                IssueV1(
                     url=new_url,
                     path=path,
                     body=body,
@@ -148,13 +151,13 @@ class Path:
         return o
 
 @dataclass
-class CSRReport:
+class CSRReportV1:
     host: str
     date: str
-    paths: Dict[str, Path] = field(default_factory=dict)
+    paths: Dict[str, PathV1] = field(default_factory=dict)
 
     @classmethod
-    def from_csr_data(cls, json_data: dict) -> CSRReport:
+    def from_csr_data(cls, json_data: dict) -> CSRReportV1:
         data = json_data.get("data")
 
         o = cls(
@@ -169,7 +172,7 @@ class CSRReport:
         for path, path_data in data.get("paths").items():
 
             for method, method_data in path_data.items():
-                path_obj = Path.from_data(method, method_data, injection_keys)
+                path_obj = PathV1.from_data(method, method_data, injection_keys)
 
                 if path_obj.issues:
                     o.paths[path] = path_obj
