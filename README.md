@@ -11,7 +11,7 @@ The tool only works properly with scan reports created with version 1.14 or late
 ### Cloning repository
 
 ```bash
-$ git clone https://github.com/42c-presales/42c-report-scan-to-postman.git
+$ git clone https://github.com/42crunch/42c-report-scan-to-postman.git
 $ cd 42c-report-scan-to-postman
 $ pip install .
 ```
@@ -19,7 +19,7 @@ $ pip install .
 ### Without cloning repository
 
 ```bash
-$ pip install git+https://github.com/42c-presales/42c-report-scan-to-postman.git
+$ pip install git+https://github.com/42crunch/42c-report-scan-to-postman.git
 ```
 
 ## Usage 
